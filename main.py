@@ -1,5 +1,5 @@
 # Complete project details at https://RandomNerdTutorials.com
-
+import json
 def sub_cb(topic, msg):
   print((topic, msg))
   if topic == b'notification' and msg == b'received':
@@ -19,7 +19,7 @@ def restart_and_reconnect():
   time.sleep(10)
   machine.reset()
   
-#{"variable": "nome", "value": "valor"}
+  #{"variable": "nome", "value": "valor"}
 try:
   client = connect_and_subscribe()
 except OSError as e:
@@ -29,7 +29,7 @@ while True:
   try:
     client.check_msg()
     if (time.time() - last_message) > message_interval:
-      msg = b'Hello #%d' % counter
+      msg = json.dumps({"variable": "teste", "value": "valor"})
       client.publish(topic_pub, msg)
       last_message = time.time()
       counter += 1
